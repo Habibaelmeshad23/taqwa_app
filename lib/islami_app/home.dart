@@ -7,6 +7,7 @@ import 'package:flutter_apps/islami_app/tabs/radio_tab.dart';
 import 'package:flutter_apps/islami_app/tabs/sebha_tab.dart';
 import 'package:flutter_apps/islami_app/tabs/settings_tab.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
 static const String routeName= "Home";
@@ -41,7 +42,7 @@ int index= 0;
               backgroundColor: MyThemeData.primaryColor ),
               BottomNavigationBarItem(
                   icon: ImageIcon(AssetImage("assets/images/ahadeth.png")),
-                  label: "Ahadeth",
+                  label: AppLocalizations.of(context)!.ahadeth,
                   backgroundColor: MyThemeData.primaryColor),
               BottomNavigationBarItem(
                   icon: ImageIcon(AssetImage("assets/images/sebha.png")),
@@ -58,7 +59,8 @@ int index= 0;
 
             ],),
           appBar: AppBar(
-            title: Text("Islami",style: Theme.of(context).
+            title: Text(AppLocalizations.of(context)!.appTitle,
+              style: Theme.of(context).
               textTheme.bodyLarge,),
           ),
           body:tabs[index] ,
