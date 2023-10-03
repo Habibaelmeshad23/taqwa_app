@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_apps/islami_app/my_theme_data.dart';
 import 'package:flutter_apps/islami_app/sura_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../sura_datails.dart';
 
@@ -27,7 +28,7 @@ class QuranTab extends StatelessWidget {
             color: MyThemeData.primaryColor,
             thickness: 3,
           ),
-          Text("Sura Name",
+          Text(AppLocalizations.of(context)!.suraNames,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: MyThemeData.blackColor
             ),),
