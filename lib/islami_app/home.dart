@@ -8,6 +8,9 @@ import 'package:flutter_apps/islami_app/tabs/sebha_tab.dart';
 import 'package:flutter_apps/islami_app/tabs/settings_tab.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/my_provider.dart';
 
 class HomeScreen extends StatefulWidget {
 static const String routeName= "Home";
@@ -21,9 +24,13 @@ int index= 0;
 
   @override
   Widget build(BuildContext context) {
+    var pro=Provider.of<MyProvider> (context);
+    var provider = Provider.of<MyProvider> (context);
+
     return Stack(
       children:[
-        Image.asset("assets/images/background.png",
+        Image.asset(
+          pro.getBackground(),
         width: double.infinity,
         fit: BoxFit.fill,),
         Scaffold(
@@ -39,23 +46,33 @@ int index= 0;
               BottomNavigationBarItem(
                   icon: ImageIcon(AssetImage("assets/images/quran.png")),
                   label: "Quran",
-              backgroundColor: MyThemeData.primaryColor ),
+              backgroundColor: provider.modeApp==ThemeMode.dark?
+              Theme.of(context).bottomNavigationBarTheme.backgroundColor:
+              MyThemeData.primaryColor ),
               BottomNavigationBarItem(
                   icon: ImageIcon(AssetImage("assets/images/ahadeth.png")),
                   label: AppLocalizations.of(context)!.ahadeth,
-                  backgroundColor: MyThemeData.primaryColor),
+                  backgroundColor: provider.modeApp==ThemeMode.dark?
+                  Theme.of(context).bottomNavigationBarTheme.backgroundColor:
+                  MyThemeData.primaryColor),
               BottomNavigationBarItem(
                   icon: ImageIcon(AssetImage("assets/images/sebha.png")),
                   label: "Sebha",
-                  backgroundColor: MyThemeData.primaryColor),
+                  backgroundColor: provider.modeApp==ThemeMode.dark?
+                  Theme.of(context).bottomNavigationBarTheme.backgroundColor:
+                  MyThemeData.primaryColor),
               BottomNavigationBarItem(
                   icon: ImageIcon(AssetImage("assets/images/radio.png")),
                   label: "Radio",
-                  backgroundColor: MyThemeData.primaryColor),
+                  backgroundColor: provider.modeApp==ThemeMode.dark?
+                  Theme.of(context).bottomNavigationBarTheme.backgroundColor:
+                  MyThemeData.primaryColor),
               BottomNavigationBarItem(
                   icon: Icon(Icons.settings),
                   label: "Settings",
-                  backgroundColor: MyThemeData.primaryColor),
+                  backgroundColor:provider.modeApp==ThemeMode.dark?
+              Theme.of(context).bottomNavigationBarTheme.backgroundColor:
+              MyThemeData.primaryColor),
 
             ],),
           appBar: AppBar(

@@ -1,6 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_apps/islami_app/my_theme_data.dart';
+import 'package:flutter_apps/providers/my_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../bottom_sheets/language_bottom_sheet.dart';
+import '../../bottom_sheets/theming_bottom_sheet.dart';
 
 class SettingsTab extends StatefulWidget {
   const SettingsTab({super.key});
@@ -12,95 +17,118 @@ class SettingsTab extends StatefulWidget {
 class _SettingsTabState extends State<SettingsTab> {
   @override
   Widget build(BuildContext context) {
+    var pro = Provider.of<MyProvider>(context);
+    var provider = Provider.of<MyProvider>(context);
+
     return Padding(
-      padding: const EdgeInsets.all(18.0),
+      padding: const EdgeInsets.all(20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Language",
-          style: TextStyle(
-            color: MyThemeData.blackColor
-          ),),
-          InkWell(
-            onTap: () {
-              showLanguageBottomSheet();
-            },
-            child: Container(
-              margin:EdgeInsets.symmetric(
-                  horizontal: 20),
-              padding: EdgeInsets.symmetric(
-                horizontal: 20),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: MyThemeData.primaryColor)
-              ),
-              child: Text("English",
-                style: TextStyle(
-                    color: MyThemeData.blackColor
-                ),),
-            ),
+          Text(
+            "Language",
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium?.copyWith(
+                color: provider.modeApp == ThemeMode.dark
+                    ? Theme.of(context).colorScheme.onBackground
+                    : MyThemeData.blackColor),
           ),
-          SizedBox(
-            height: 25,),
-          Text("Theming",
-            style: TextStyle(
-                color: MyThemeData.blackColor
-            ),),
-          InkWell(
-            onTap: () {
-              showThemingBottomSheet();
-            },
-            child: Container(
-              margin:EdgeInsets.symmetric(
-                  horizontal: 20),
-              padding: EdgeInsets.symmetric(
-                  horizontal: 20),
+          Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              height: 45,
               width: double.infinity,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: MyThemeData.primaryColor)
-              ),
-              child: Text("Light",
-                style: TextStyle(
-                    color: MyThemeData.blackColor
-                ),),
-            ),
-          )
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: MyThemeData.primaryColor)),
+              child: Row(
+                children: [
+                  Text(
+                      pro.languageCode == "en"
+                          ? AppLocalizations.of(context)!.eng
+                          : AppLocalizations.of(context)!.arabic,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: provider.modeApp == ThemeMode.dark
+                              ? Theme.of(context).colorScheme.onBackground
+                              : MyThemeData.blackColor)),
+                  Spacer(),
+                  InkWell(
+                    onTap: () {
+                      showLanguageBottomSheet();
+                    },
+                    child: Icon(
+                      Icons.arrow_drop_down,
+                      color: MyThemeData.primaryColor,
+                    ),
+                  )
+                ],
+              )),
+          SizedBox(
+            height: 25,
+          ),
+          Text(
+            "Theming",
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium?.copyWith(
+                color: provider.modeApp == ThemeMode.dark
+                    ? Theme.of(context).colorScheme.onBackground
+                    : MyThemeData.blackColor),
+          ),
+          Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              height: 45,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: MyThemeData.primaryColor)),
+              child: Row(
+                children: [
+                  Text(
+                    "Light",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium?.copyWith(
+                        color: provider.modeApp == ThemeMode.dark
+                            ? Theme.of(context).colorScheme.onBackground
+                            : MyThemeData.blackColor),
+                  ),
+                  Spacer(),
+                  InkWell(
+                    onTap: () {
+                      showThemingBottomSheet();
+                    },
+                    child: Icon(
+                      Icons.arrow_drop_down,
+                      color: MyThemeData.primaryColor,
+                    ),
+                  )
+                ],
+              )),
         ],
       ),
     );
   }
 
-  showLanguageBottomSheet(){
-    showModalBottomSheet(context: context,
-        isScrollControlled: true,
+  showLanguageBottomSheet() {
+    showModalBottomSheet(
+        context: context,
         shape: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.transparent
-          ),
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15),topRight: Radius.circular(15)
-          )
-        ),
-        builder:(context) => Container(
-         height: MediaQuery.of(context).size.height*.5,
-        ));
-  }
-  showThemingBottomSheet(){
-    showModalBottomSheet(context: context,
-        isScrollControlled: true,
-        shape: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: Colors.transparent
-            ),
+            borderSide: BorderSide(color: Colors.transparent),
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15),topRight: Radius.circular(15)
-            )
-        ),
-        builder:(context) => Container(
-          height: MediaQuery.of(context).size.height*.5,
-        ));
+                topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+        builder: (context) => LanguageBottomSheet());
   }
 
+  showThemingBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        shape: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+        builder: (context) => ThemingBottomSheet());
+  }
 }

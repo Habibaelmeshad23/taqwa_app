@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_apps/islami_app/hadeth_details.dart';
 import 'package:flutter_apps/islami_app/hadeth_model.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/my_provider.dart';
 import '../my_theme_data.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -20,6 +22,7 @@ class _AhadethTabState extends State<AhadethTab> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider> (context);
     loadHadeth();
     return Center(
       child: Column(
@@ -30,9 +33,8 @@ class _AhadethTabState extends State<AhadethTab> {
             thickness: 3,
           ),
           Text(AppLocalizations.of(context)!.ahadeth,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: MyThemeData.blackColor
-            ),),
+            style: Theme.of(context).textTheme.bodyMedium ?.copyWith(color:provider.modeApp==ThemeMode.dark?
+            Theme.of(context).colorScheme.onBackground:MyThemeData.blackColor)),
           Divider(
             color: MyThemeData.primaryColor,
             thickness: 3,
@@ -53,9 +55,8 @@ class _AhadethTabState extends State<AhadethTab> {
                       );
                     },
                     child: Text(allAhadeth[index].title,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: MyThemeData.blackColor
-                ),),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color:provider.modeApp==ThemeMode.dark?
+                Theme.of(context).colorScheme.onBackground:MyThemeData.blackColor)),
                   )
               );
             }, itemCount: allAhadeth.length)

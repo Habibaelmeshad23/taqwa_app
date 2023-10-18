@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_apps/islami_app/sura_model.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/my_provider.dart';
+import '../providers/sura_details_provider.dart';
 import 'my_theme_data.dart';
 
 class SuraDetails extends StatefulWidget {
@@ -13,13 +16,14 @@ static const String routeName="suraDetails";
 }
 
 class _SuraDetailsState extends State<SuraDetails> {
-List<String>verses=[];
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider> (context);
+    var pro=Provider.of<SuraDetailsProvider>(context);
     var args = ModalRoute.of(context)?.settings.arguments as SuraModel;
-    if(verses.isEmpty){
-      loadFile(args.index);
+    if(pro.verses.isEmpty){
+     pro.loadFile(args.index);
     }
 
     return Stack(
@@ -31,14 +35,18 @@ List<String>verses=[];
           appBar: AppBar(
 
             title: Text(args.name,style: Theme.of(context).
-            textTheme.bodyLarge,),
+            textTheme.bodyLarge!.copyWith(
+                color: provider.modeApp==ThemeMode.dark?
+                Theme.of(context).colorScheme.secondary:MyThemeData.blackColor
+            ),),
           ),
           body:Padding(
             padding: const EdgeInsets.all(15.0),
             child: Card(
-              elevation: 10,
+              elevation: 15,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15)
+                borderRadius: BorderRadius.circular(15),
+                side: BorderSide(color: MyThemeData.primaryColor,width: 2)
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -52,13 +60,16 @@ List<String>verses=[];
                   return Center(
                     child: Directionality(
                       textDirection: TextDirection.rtl,
-                      child: Text("${verses[index]}(${index+1}",
+                      child: Text("${pro.verses[index]}(${index+1})",
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodySmall,),
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            color: provider.modeApp==ThemeMode.dark?
+                            Theme.of(context).colorScheme.secondary:MyThemeData.blackColor
+                        ),),
                     ),
                   );
                 },
-                  itemCount:verses.length ,
+                  itemCount:pro.verses.length ,
                 ),
               ),
             ),
@@ -69,13 +80,5 @@ List<String>verses=[];
       );
   }
 
- void loadFile(int index)async{
-   String file=await rootBundle.loadString("assets/files/${index+1}.txt");
-   List<String>lines=file.split("/n");
-   print(lines);
-   verses=lines;
-   setState(() {
 
-   });
-  }
 }

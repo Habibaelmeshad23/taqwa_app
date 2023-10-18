@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_apps/islami_app/my_theme_data.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/my_provider.dart';
 
 class SebhaTab extends StatefulWidget {
 static const String routeName= "sebha";
@@ -17,6 +20,8 @@ class _SebhaTabState extends State<SebhaTab> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider> (context);
+
     return Center(
       child: Column(
         children: [
@@ -38,33 +43,38 @@ class _SebhaTabState extends State<SebhaTab> {
 
           SizedBox(height: 25,),
           Text("عدد التسبيحات",
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: MyThemeData.blackColor
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: provider.modeApp==ThemeMode.dark?
+                Theme.of(context).colorScheme.onSecondary:MyThemeData.blackColor
             ),),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
-              color: MyThemeData.primaryColor,
+              color:  provider.modeApp==ThemeMode.dark?
+              Theme.of(context).colorScheme.primary:MyThemeData.primaryColor,
             ),
             padding: EdgeInsets.all(18),
 
             child: Text("$counter",
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: MyThemeData.blackColor
-              ),),
+                  color: provider.modeApp == ThemeMode.dark
+                      ? Theme.of(context).colorScheme.onBackground
+                      : MyThemeData.blackColor)),
           ),
           SizedBox(height: 15,),
           Container(
-
-
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
-              color: MyThemeData.primaryColor,
+              color: provider.modeApp==ThemeMode.dark?
+              Theme.of(context).colorScheme.background:MyThemeData.primaryColor,
             ),
             padding: EdgeInsets.all(12),
 
             child: Text(zekr[index],
-              style: Theme.of(context).textTheme.bodyMedium,),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: provider.modeApp == ThemeMode.dark
+                      ? Theme.of(context).colorScheme.primary
+                      : MyThemeData.blackColor),),
           ),
 
         ],
