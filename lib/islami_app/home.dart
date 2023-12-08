@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_apps/islami_app/my_theme_data.dart';
 import 'package:flutter_apps/islami_app/tabs/ahadeth_tab.dart';
@@ -6,7 +5,6 @@ import 'package:flutter_apps/islami_app/tabs/quran_tab.dart';
 import 'package:flutter_apps/islami_app/tabs/radio_tab.dart';
 import 'package:flutter_apps/islami_app/tabs/sebha_tab.dart';
 import 'package:flutter_apps/islami_app/tabs/settings_tab.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +12,8 @@ import '../providers/my_provider.dart';
 
 class HomeScreen extends StatefulWidget {
 static const String routeName= "Home";
+
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

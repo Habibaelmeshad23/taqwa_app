@@ -8,6 +8,7 @@ import '../../providers/my_provider.dart';
 class SebhaTab extends StatefulWidget {
 static const String routeName= "sebha";
 
+
   @override
   State<SebhaTab> createState() => _SebhaTabState();
 }
@@ -16,6 +17,7 @@ class _SebhaTabState extends State<SebhaTab> {
 
   int counter=0;
   int index=0;
+  bool click = true;
   List<String>zekr=["سبحان الله","الحمدلله","الله اكبر"];
 
   @override
@@ -33,14 +35,14 @@ class _SebhaTabState extends State<SebhaTab> {
                 ResetZekr();
               }
               setState(() {
-
+                click=!click;
               });
             },
-              splashColor: MyThemeData.primaryColor,
-              highlightColor:Colors.orange[50],
-              child:
-              Image.asset("assets/images/sebha.png")),
 
+              child:
+              Image.asset("assets/images/sebha.png",
+              color: (click==false) ?
+              Colors.orange.shade100 : MyThemeData.primaryColor,)),
           SizedBox(height: 25,),
           Text("عدد التسبيحات",
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -66,7 +68,7 @@ class _SebhaTabState extends State<SebhaTab> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
               color: provider.modeApp==ThemeMode.dark?
-              Theme.of(context).colorScheme.background:MyThemeData.primaryColor,
+              Theme.of(context).colorScheme.secondary:MyThemeData.primaryColor,
             ),
             padding: EdgeInsets.all(12),
 

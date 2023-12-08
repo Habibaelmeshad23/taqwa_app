@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../bottom_sheets/language_bottom_sheet.dart';
 import '../../bottom_sheets/theming_bottom_sheet.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class SettingsTab extends StatefulWidget {
   const SettingsTab({super.key});
@@ -26,7 +28,7 @@ class _SettingsTabState extends State<SettingsTab> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Language",
+            AppLocalizations.of(context)!.lang,
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium?.copyWith(
@@ -68,7 +70,7 @@ class _SettingsTabState extends State<SettingsTab> {
             height: 25,
           ),
           Text(
-            "Theming",
+            AppLocalizations.of(context)!.theme,
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium?.copyWith(
@@ -87,7 +89,9 @@ class _SettingsTabState extends State<SettingsTab> {
               child: Row(
                 children: [
                   Text(
-                    "Light",
+                    pro.modeApp== ThemeMode.light
+                        ?AppLocalizations.of(context)!.light
+                        : AppLocalizations.of(context)!.dark,
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium?.copyWith(
@@ -114,6 +118,7 @@ class _SettingsTabState extends State<SettingsTab> {
 
   showLanguageBottomSheet() {
     showModalBottomSheet(
+
         context: context,
         shape: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.transparent),

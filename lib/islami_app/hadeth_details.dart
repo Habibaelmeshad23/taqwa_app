@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_apps/islami_app/hadeth_model.dart';
 import 'package:provider/provider.dart';
 
@@ -9,6 +7,8 @@ import 'my_theme_data.dart';
 
 class HadethDetails extends StatefulWidget {
   static const String routeName="hadethDetails";
+
+  const HadethDetails({super.key});
 
   @override
   State<HadethDetails> createState() => _HadethDetailsState();
@@ -20,13 +20,18 @@ class _HadethDetailsState extends State<HadethDetails> {
     var args= ModalRoute.of(context)?.settings.arguments as HadethModel;
     var provider = Provider.of<MyProvider> (context);
 
-
-
     return Stack(
       children: [
-      Image.asset("assets/images/background.png",
-      width: double.infinity,
-      fit: BoxFit.fill,),
+        provider.modeApp==ThemeMode.light?
+        Image.asset(
+          "assets/images/background.png",
+          width: double.infinity,
+          fit: BoxFit.fill,
+        ):Image.asset(
+          "assets/images/background_dark.png",
+          width: double.infinity,
+          fit: BoxFit.fill,
+        ),
     Scaffold(
     appBar: AppBar(
 
@@ -39,6 +44,8 @@ class _HadethDetailsState extends State<HadethDetails> {
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Card(
+          color: provider.modeApp==ThemeMode.light?
+          Theme.of(context).colorScheme.onPrimary:MyThemeData.darkPrimary,
           elevation: 10,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),

@@ -3,5 +3,9 @@
   "suraNames": "Sura Names",
   "ahadeth": "Ahadeth",
   "arabic": "Arabic",
-  "eng": "English"
+  "eng": "English",
+  "lang": "Language",
+  "theme": "Theming",
+  "light": "Light",
+  "dark": "Dark"
 }

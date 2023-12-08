@@ -2,26 +2,19 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_apps/islami_app/my_theme_data.dart';
 import 'package:flutter_apps/providers/my_provider.dart';
-import 'package:flutter_apps/providers/sura_details_provider.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'hadeth_details.dart';
-import 'home.dart';
-import 'sura_datails.dart';
+import 'islami_app/hadeth_details.dart';
+import 'islami_app/home.dart';
+import 'islami_app/sura_datails.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 void main(){
-
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (context)=>MyProvider(),),
-      ChangeNotifierProvider(create: (context)=>SuraDetailsProvider(),),
-
-    ],
-
-      child: MyApp()));
+  runApp(ChangeNotifierProvider(
+create: (context) => MyProvider(),
+    child: const MyApp(),),);
 }
 class MyApp extends StatelessWidget{
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     var pro=Provider.of<MyProvider>(context);
@@ -32,10 +25,10 @@ class MyApp extends StatelessWidget{
       debugShowCheckedModeBanner: false,
       initialRoute:SplashScreen.routeName ,
       routes: {
-        SplashScreen.routeName:(context) => SplashScreen(),
-        HomeScreen.routeName:(context) => HomeScreen(),
-        SuraDetails.routeName:(context) => SuraDetails(),
-        HadethDetails.routeName:(context) => HadethDetails(),
+        SplashScreen.routeName:(context) => const SplashScreen(),
+        HomeScreen.routeName:(context) => const HomeScreen(),
+        SuraDetails.routeName:(context) => const SuraDetails(),
+        HadethDetails.routeName:(context) => const HadethDetails(),
 
       },
         themeMode: pro.modeApp,
@@ -47,6 +40,8 @@ class MyApp extends StatelessWidget{
 
 class SplashScreen extends StatefulWidget {
 static const String routeName= "splash";
+
+  const SplashScreen({super.key});
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
@@ -55,9 +50,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacement(context , MaterialPageRoute(
-          builder: (context) => HomeScreen()));
+          builder: (context) => const HomeScreen()));
     });
     super.initState();
   }
