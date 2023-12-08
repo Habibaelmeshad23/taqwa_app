@@ -43,6 +43,7 @@ class ThemingBottomSheet extends StatelessWidget {
                         )
                            ),
                     Spacer(),
+                    
                     provider.modeApp== ThemeMode.dark
                         ?SizedBox.shrink()
                     :Container(
